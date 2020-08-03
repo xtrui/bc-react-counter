@@ -3,24 +3,40 @@ import React from 'react';
 class Counters extends React.Component {
     constructor(props) {
         super(props);
-        this.state={
-            size:1
+        this.state = {
+            size: 1,
+            total: 0
         }
     }
 
-    changeSize=()=>{
+    changeSize = () => {
         let size = document.getElementById("size").value;
-        console.log(size);
+        if (size === '') size = 1;
         
+        if (this.state.size !== size) {
+            if (this.state.total !== 0) {
+                this.child();
+            }
+            this.setState({
+                size: parseInt(size),
+                total: 0
+            })
+        }
+    }
+    sumTotal = (num) => {
         this.setState({
-            size:parseInt(size)
+            total: this.state.total += num
         })
+    }
+    onRef = (child) => {
+        this.child = child.reset;
     }
     render() {
         return (
             <div>
-                <input id="size" type="text"/><input type="button" onClick={this.changeSize} value="确定"/>
-                {new Array(this.state.size).fill(0).map((value,index) => <Counter key={index}></Counter>)}
+                <input id="size" type="text" /><input type="button" onClick={this.changeSize} value="确定" />
+                <h3>{this.state.total}</h3>
+                {new Array(this.state.size).fill(0).map((value, index) => <Counter parent={this} onRef={this} key={index}></Counter>)}
             </div>
         );
     }

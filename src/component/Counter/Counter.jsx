@@ -8,6 +8,7 @@ class Counter extends React.Component {
         };
     }
 
+
     add = () => {
 
         this.setState(
@@ -15,12 +16,25 @@ class Counter extends React.Component {
                 number: this.state.number + 1
             }
         )
+        this.callParent(1);
+        this.props.onRef.onRef(this);
     }
 
     sub = () => {
         this.setState(
             { number: this.state.number - 1 }
         );
+        this.callParent(-1);
+        this.props.onRef.onRef(this);
+    }
+
+    callParent=(num)=>{
+        this.props.parent.sumTotal(num)
+    }
+    reset=()=>{
+        this.setState({
+            number:0
+        })
     }
 
     render() {
