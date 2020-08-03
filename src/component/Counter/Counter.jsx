@@ -9,7 +9,7 @@ class Counter extends React.Component {
     }
 
     add = () => {
-        
+
         this.setState(
             {   
                 number: this.state.number + 1
@@ -26,10 +26,9 @@ class Counter extends React.Component {
     render() {
         return (
             <div >
-                <button onClick={this.add}>+</button>
-                {this.state.number}
-                {this.props.name}
                 <button onClick={this.sub}>-</button>
+                {this.state.number}
+                <button onClick={this.add}>+</button>
             </div>
         );
     }

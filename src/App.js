@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
-import Counter from './component/Counter'
-import Counters from './component/Counters'
+import Counter from './component/Counter/Counter'
+import Counters from './component/Counters/Counters'
 import './App.css';
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
           Edit <code>src/App.js</code> and save to reload.
         </p>
         <Counter></Counter>
-        <Counters size={10}></Counters>
+        <Counters size={5}></Counters>
 
       </header>
     </div>
