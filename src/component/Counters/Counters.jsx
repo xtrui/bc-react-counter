@@ -1,6 +1,8 @@
 import Counter from "../Counter/Counter"
 import React from 'react';
+import store from '../../Store'
 class Counters extends React.Component {
+    children = [];
     constructor(props) {
         super(props);
         this.state = {
@@ -12,31 +14,38 @@ class Counters extends React.Component {
     changeSize = () => {
         let size = document.getElementById("size").value;
         if (size === '') size = 1;
-        
+
         if (this.state.size !== size) {
-            if (this.state.total !== 0) {
-                this.child();
+            //循环置零
+            if (store.getState() !== 0) {
+                this.children.forEach((value,index)=>{
+                    value();
+                });
             }
             this.setState({
                 size: parseInt(size),
                 total: 0
             })
+            store.dispatch({ type: 'RESET' });
+            this.forceUpdate();
         }
     }
-    sumTotal = (num) => {
-        this.setState({
-            total: this.state.total += num
-        })
+    sumTotal = () => {
+        // this.setState({
+        //     total: this.state.total += num
+        // })
+        this.forceUpdate();
     }
     onRef = (child) => {
-        this.child = child.reset;
+        this.children.push(child.reset);
     }
+
     render() {
         return (
             <div>
                 <input id="size" type="text" /><input type="button" onClick={this.changeSize} value="确定" />
-                <h3>{this.state.total}</h3>
-                {new Array(this.state.size).fill(0).map((value, index) => <Counter parent={this} onRef={this} key={index}></Counter>)}
+                <h2>{store.getState()   }</h2>
+                {new Array(this.state.size).fill(0).map((value, index) => <Counter parent={this} onRef={this} key={index}/>)}
             </div>
         );
     }

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import store from '../../Store'
 class Counter extends React.Component {
     constructor(props) {
         super(props);
@@ -7,7 +7,9 @@ class Counter extends React.Component {
             number: 0
         };
     }
-
+    componentDidMount(){
+        
+    }
 
     add = () => {
 
@@ -16,7 +18,8 @@ class Counter extends React.Component {
                 number: this.state.number + 1
             }
         )
-        this.callParent(1);
+        store.dispatch({ type: 'INCREMENT' });
+        this.callParent();
         this.props.onRef.onRef(this);
     }
 
@@ -24,7 +27,8 @@ class Counter extends React.Component {
         this.setState(
             { number: this.state.number - 1 }
         );
-        this.callParent(-1);
+        store.dispatch({ type: 'DECREMENT' });
+        this.callParent();
         this.props.onRef.onRef(this);
     }
 

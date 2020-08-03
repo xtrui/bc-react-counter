@@ -1,8 +1,11 @@
 import React from 'react';
 import logo from './logo.svg';
-import Counter from './component/Counter/Counter'
 import Counters from './component/Counters/Counters'
 import './App.css';
+import reducer from './reducers'
+import { createStore } from 'redux'
+import store from './Store'
+import { render } from '@testing-library/react';
 
 function App() {
   return (
@@ -12,14 +15,17 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-        <Counter></Counter>
-        <Counters size={5}></Counters>
+        <Counters
+          value={store.getState()}
+          addTotal={()=>store.dispatch({ type: 'INCREMENT' })}
+          subTotal={()=>store.dispatch({ type: 'DECREMENT' }) }
+          size={1}></Counters>
 
       </header>
     </div>
   );
-
-
+  
 }
+store.subscribe(App)
 
 export default App;
