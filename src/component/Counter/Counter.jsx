@@ -8,7 +8,7 @@ class Counter extends React.Component {
         };
     }
     componentDidMount(){
-        
+        this.props.onRef.onRef(this);
     }
 
     add = () => {
@@ -20,7 +20,7 @@ class Counter extends React.Component {
         )
         store.dispatch({ type: 'INCREMENT' });
         this.callParent();
-        this.props.onRef.onRef(this);
+        // this.props.onRef.onRef(this);
     }
 
     sub = () => {
@@ -29,7 +29,7 @@ class Counter extends React.Component {
         );
         store.dispatch({ type: 'DECREMENT' });
         this.callParent();
-        this.props.onRef.onRef(this);
+        // this.props.onRef.onRef(this);
     }
 
     callParent=(num)=>{

@@ -13,9 +13,9 @@ class Counters extends React.Component {
 
     changeSize = () => {
         let size = document.getElementById("size").value;
-        if (size === '') size = 1;
+        if (size == '') size = 1;
 
-        if (this.state.size !== size) {
+        if (this.state.size != size) {
             //循环置零
             if (store.getState() !== 0) {
                 this.children.forEach((value,index)=>{
